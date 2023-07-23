@@ -33,6 +33,9 @@ class PricingConfigAdmin(admin.ModelAdmin):
                 pricing_logger.info(f"Configuration '{obj.name}' changed by user: {request.user} at {timezone.now()}. Changes: {changed_fields}.")
             else:
                 pricing_logger.info(f"Configuration '{obj.name}' saved by user: {request.user} at {timezone.now()}.")
+        else:
+            obj.save()
+            pricing_logger.info(f"Configuration '{obj.name}' created by user: {request.user} at {timezone.now()}.")
 
 admin.site.register(PricingConfig, PricingConfigAdmin)
 
