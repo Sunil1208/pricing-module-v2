@@ -82,6 +82,37 @@ DATABASES = {
 }
 
 
+# Logging Configurations
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'http_requests_file': {
+            'level': 'INFO',  # You can set the logging level as per your preference (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+            'class': 'logging.FileHandler',
+            'filename': 'http_requests.log',  # Log file for HTTP requests
+        },
+        'pricing_module_file': {
+            'level': 'INFO',  # You can set the logging level as per your preference (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+            'class': 'logging.FileHandler',
+            'filename': 'pricing_module.log',  # Log file for pricing_module logs
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['http_requests_file'],
+            'level': 'INFO',  # Set the logging level for Django core
+            'propagate': True,
+        },
+        'pricing_module': {
+            'handlers': ['pricing_module_file'],
+            'level': 'INFO',  # Set the logging level for your app (pricing_module)
+            'propagate': False,
+        },
+    },
+}
+
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -116,7 +147,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
